@@ -40,7 +40,7 @@ class Segment
             'run_id' => $data['properties']['Run ID'],
             'shift_id' => $data['properties']['Shift ID'],
             'event_type' => 'exitInnerFence',
-            'event_timestamp' => $data['timestamp']);
+            'event_timestamp' => $this->cleanTimestamp($data['timestamp']));
         
         return $event;
     }
@@ -52,7 +52,7 @@ class Segment
             'run_id' => $data['properties']['Run ID'],
             'shift_id' => $data['properties']['Shift ID'],
             'event_type' => 'exitOuterFence',
-            'event_timestamp' => $data['timestamp']);
+            'event_timestamp' => $this->cleanTimestamp($data['timestamp']));
         
         return $event;
     }
@@ -64,7 +64,7 @@ class Segment
             'run_id' => $data['properties']['Run ID'],
             'shift_id' => $data['properties']['Shift ID'],
             'event_type' => 'enterInnerFence',
-            'event_timestamp' => $data['timestamp']);
+            'event_timestamp' => $this->cleanTimestamp($data['timestamp']));
         
         return $event;
     }
@@ -76,8 +76,14 @@ class Segment
             'run_id' => $data['properties']['Run ID'],
             'shift_id' => $data['properties']['Shift ID'],
             'event_type' => 'enterOuterFence',
-            'event_timestamp' => $data['timestamp']);
+            'event_timestamp' => $this->cleanTimestamp($data['timestamp']));
         
         return $event;
+    }
+
+    private function cleanTimestamp($timeStamp)
+    {
+        $timeStamp = explode('.', $timeStamp);
+        return $timeStamp[0];
     }
 }
